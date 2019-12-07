@@ -6,9 +6,9 @@ import modules.ScreenConverter;
 import java.awt.*;
 import java.util.ArrayList;
 
-public interface IFigure {
+public interface Figure {
     ArrayList<MyPoint> getKeyPoints();
 
-    void draw(ScreenConverter screenConverter, IPixelDrawer pd, ILineDrawer ld, Color color);
+    void draw(ScreenConverter screenConverter, PixelDrawer pd, LineDrawer ld, Color color);
     MyPoint getCenter();
 }

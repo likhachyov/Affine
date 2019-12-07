@@ -4,13 +4,10 @@ import affines.Affine;
 import modules.MyPoint;
 import modules.ScreenConverter;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public abstract class IMarker implements IFigure{
+public abstract class Marker implements Figure {
 
     private boolean focused;
 
@@ -18,13 +15,13 @@ public abstract class IMarker implements IFigure{
         this.focused = focused;
     }
 
-    private int size = 20;
+    public int size = 20;
     private MyPoint curPoint;
 
-    protected IFigure figure;
-    protected Affine affine;
-    private MyPoint center;
-    private ArrayList<MyPoint> keyPoints;
+    public Figure figure;
+    public Affine affine;
+    public MyPoint center;
+    public ArrayList<MyPoint> keyPoints;
 
     public void setCenter(MyPoint center) {
         this.center = center;
@@ -39,18 +36,6 @@ public abstract class IMarker implements IFigure{
         return keyPoints;
     }
 
-    public IMarker(IFigure figure, Affine affine) {
-        this.affine = affine;
-        this.figure = figure;
-        center = figure.getCenter();
-        keyPoints = new ArrayList<>(4);
-        keyPoints.add(new MyPoint(center.getX() - size, center.getY()-size));
-        keyPoints.add(new MyPoint(center.getX()-size, center.getY() + size));
-        keyPoints.add(new MyPoint(center.getX() + size, center.getY()+size));
-        keyPoints.add(new MyPoint(center.getX()+size, center.getY() - size));
-
-    }
-
     public void setCurPoint(MyPoint curPoint) {
         this.curPoint = curPoint;
     }
@@ -60,7 +45,7 @@ public abstract class IMarker implements IFigure{
     }
 
     @Override
-    public void draw(ScreenConverter screenConverter, IPixelDrawer pd, ILineDrawer ld, Color color){
+    public void draw(ScreenConverter screenConverter, PixelDrawer pd, LineDrawer ld, Color color) {
         for (int i = 0; i < keyPoints.size(); i++) {
             ld.drawLine(pd, screenConverter.realToScreen(keyPoints.get(i)),
                     screenConverter.realToScreen(keyPoints.get((i + 1) % keyPoints.size())), color);
@@ -74,8 +59,8 @@ public abstract class IMarker implements IFigure{
     public boolean inside(MyPoint point) {
         if (point.x >= center.x - size && point.x <= center.x + size &&
                 point.y <= center.y + size && point.y >= center.y - size)
-        return point.x >= center.x - size && point.x <= center.x + size &&
-                point.y <= center.y + size && point.y >= center.y - size;
+            return point.x >= center.x - size && point.x <= center.x + size &&
+                    point.y <= center.y + size && point.y >= center.y - size;
         else
             return false;
     }

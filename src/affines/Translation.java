@@ -1,9 +1,9 @@
 package affines;
 
-import Interfaces.IAffine;
+import Interfaces.Affine;
 import modules.MyPoint;
 
-public class Translation implements IAffine {
+public class Translation implements Affine {
 
     private double a, b;
 

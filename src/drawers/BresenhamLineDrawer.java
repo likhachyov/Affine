@@ -1,13 +1,13 @@
 package drawers;
 
-import Interfaces.ILineDrawer;
-import Interfaces.IPixelDrawer;
+import Interfaces.LineDrawer;
+import Interfaces.PixelDrawer;
 
 import java.awt.*;
 
-public class BresenhamLineDrawer implements ILineDrawer {
+public class BresenhamLineDrawer implements LineDrawer {
     @Override
-    public void drawLine(IPixelDrawer pd, Point p1, Point p2, Color color) {
+    public void drawLine(PixelDrawer pd, Point p1, Point p2, Color color) {
         int dx = (p2.x - p1.x >= 0 ? 1 : -1);
         int dy = (p2.y - p1.y >= 0 ? 1 : -1);
 

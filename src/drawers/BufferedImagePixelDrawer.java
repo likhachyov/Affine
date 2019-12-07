@@ -1,11 +1,11 @@
 package drawers;
 
-import Interfaces.IPixelDrawer;
+import Interfaces.PixelDrawer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class BufferedImagePixelDrawer implements IPixelDrawer {
+public class BufferedImagePixelDrawer implements PixelDrawer {
 
     private BufferedImage image;
 

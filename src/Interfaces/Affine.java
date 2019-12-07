@@ -2,7 +2,7 @@ package Interfaces;
 
 import modules.MyPoint;
 
-public interface IAffine {
+public interface Affine {
 
     void transform(MyPoint point);
 }

@@ -1,9 +1,9 @@
 package affines;
 
-import Interfaces.IAffine;
+import Interfaces.Affine;
 import modules.MyPoint;
 
-public class Rotate implements IAffine {
+public class Rotate implements Affine {
 
     private double alpha;
 

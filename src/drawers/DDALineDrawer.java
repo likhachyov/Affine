@@ -1,13 +1,13 @@
 package drawers;
 
-import Interfaces.ILineDrawer;
-import Interfaces.IPixelDrawer;
+import Interfaces.LineDrawer;
+import Interfaces.PixelDrawer;
 
 import java.awt.*;
 
-public class DDALineDrawer implements ILineDrawer {
+public class DDALineDrawer implements LineDrawer {
     @Override
-    public void drawLine(IPixelDrawer pd, Point p1, Point p2, Color color) {
+    public void drawLine(PixelDrawer pd, Point p1, Point p2, Color color) {
         double dx = Math.abs(p2.x - p1.x);
         double dy = Math.abs(p2.y - p1.y);
         double D = Math.max(dx, dy);

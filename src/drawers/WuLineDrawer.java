@@ -1,13 +1,13 @@
 package drawers;
 
-import Interfaces.ILineDrawer;
-import Interfaces.IPixelDrawer;
+import Interfaces.LineDrawer;
+import Interfaces.PixelDrawer;
 
 import java.awt.*;
 
-public class WuLineDrawer implements ILineDrawer {
+public class WuLineDrawer implements LineDrawer {
 
-    public void drawLine(IPixelDrawer pd, Point p1, Point p2, Color c) {
+    public void drawLine(PixelDrawer pd, Point p1, Point p2, Color c) {
         int x = p1.x;
         int y = p1.y;
         double dx = Math.abs(p2.x - p1.x);

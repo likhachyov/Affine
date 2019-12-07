@@ -1,13 +1,13 @@
 package modules;
 
-import Interfaces.IFigure;
-import Interfaces.ILineDrawer;
-import Interfaces.IPixelDrawer;
+import Interfaces.Figure;
+import Interfaces.LineDrawer;
+import Interfaces.PixelDrawer;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Rhombus implements IFigure {
+public class Rhombus implements Figure {
 
     private MyPoint center;
     private ArrayList<MyPoint> keyPoints;
@@ -27,7 +27,7 @@ public class Rhombus implements IFigure {
     }
 
     @Override
-    public void draw(ScreenConverter screenConverter, IPixelDrawer pd, ILineDrawer ld, Color color) {
+    public void draw(ScreenConverter screenConverter, PixelDrawer pd, LineDrawer ld, Color color) {
         for (int i = 0; i < keyPoints.size(); i++) {
             ld.drawLine(pd, screenConverter.realToScreen(keyPoints.get(i)),
                     screenConverter.realToScreen(keyPoints.get((i + 1) % keyPoints.size())), color);

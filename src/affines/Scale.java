@@ -1,9 +1,9 @@
 package affines;
 
-import Interfaces.IAffine;
+import Interfaces.Affine;
 import modules.MyPoint;
 
-public class Scale implements IAffine {
+public class Scale implements Affine {
 
     private double a, b;
 
@@ -17,21 +17,7 @@ public class Scale implements IAffine {
         this.b = 1;
     }
 
-    public void setA(double a) {
-        this.a = a;
-    }
 
-    public void setB(double b) {
-        this.b = b;
-    }
-
-    public double getA() {
-        return a;
-    }
-
-    public double getB() {
-        return b;
-    }
 
     @Override
     public void transform(MyPoint point) {

@@ -1,9 +1,9 @@
 package affines;
 
-import Interfaces.IAffine;
+import Interfaces.Affine;
 import modules.MyPoint;
 
-public class Shift implements IAffine {
+public class Shift implements Affine {
 
     private double shiftX, shiftY;
 

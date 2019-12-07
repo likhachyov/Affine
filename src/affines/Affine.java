@@ -1,11 +1,11 @@
 package affines;
 
-import Interfaces.IAffine;
-import Interfaces.IFigure;
+import Interfaces.Figure;
+import Interfaces.Marker;
 
 public class Affine {
 
-    public void transform(IFigure figure, IAffine affine) {
+    public void transform(Figure figure, Interfaces.Affine affine) {
        figure.getKeyPoints().forEach(affine::transform);
        affine.transform(figure.getCenter());
     }

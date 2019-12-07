@@ -1,19 +1,17 @@
 package modules;
 
-
 import Interfaces.Figure;
 import Interfaces.Marker;
 import affines.Affine;
-import affines.Translation;
+import affines.Rotate;
 
 import java.util.ArrayList;
 
-public class TranslationMarker extends Marker {
-
-    public TranslationMarker(Figure figure, Affine affine) {
+public class RotateMarker extends Marker {
+    public RotateMarker(Figure figure, Affine affine) {
         this.affine = affine;
         this.figure = figure;
-        center = figure.getCenter();
+        center = figure.getKeyPoints().get(0);
         keyPoints = new ArrayList<>(4);
         keyPoints.add(new MyPoint(center.getX() - size, center.getY() - size));
         keyPoints.add(new MyPoint(center.getX() - size, center.getY() + size));
@@ -25,9 +23,9 @@ public class TranslationMarker extends Marker {
     public void moveMarker(MyPoint from, MyPoint to) {
         int dx = (int) (to.x - from.x);
         int dy = (int) (to.y - from.y);
-        Translation t = new Translation(dx, dy);
+        int alpha = (int) Math.atan((to.x - from.x)/(to.y - from.y));
+        Rotate t = new Rotate(alpha);
         affine.transform(figure, t);
         affine.transform(this, t);
     }
-
 }

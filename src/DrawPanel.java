@@ -1,5 +1,5 @@
-import Interfaces.IFigure;
-import Interfaces.ILineDrawer;
+import Interfaces.Figure;
+import Interfaces.LineDrawer;
 import affines.Affine;
 import drawers.BufferedImagePixelDrawer;
 import drawers.WuLineDrawer;
@@ -12,10 +12,11 @@ import java.awt.image.BufferedImage;
 
 public class DrawPanel extends JPanel implements MouseMotionListener {
 
-    private ILineDrawer ld;
+    private LineDrawer ld;
     private ScreenConverter screenConverter;
-    private IFigure figure;
-    private TranslationMarker marker;
+    private Figure figure;
+    private TranslationMarker transMarker;
+    private RotateMarker rotateMarker;
     private Affine affine;
 
     public DrawPanel(int width, int height) {
@@ -24,7 +25,8 @@ public class DrawPanel extends JPanel implements MouseMotionListener {
         screenConverter = new ScreenConverter(width, height, width, height);
         figure = new Rhombus(new MyPoint(0, 0), 300, 500);
 
-        marker = new TranslationMarker(figure, affine);
+        transMarker = new TranslationMarker(figure, affine);
+        rotateMarker = new RotateMarker(figure, affine);
 
         setFocusable(true);
         this.addMouseMotionListener(this);
@@ -32,12 +34,18 @@ public class DrawPanel extends JPanel implements MouseMotionListener {
             @Override
             public void mousePressed(MouseEvent e) {
                 MyPoint myE = screenConverter.screenToReal(e.getPoint());
-                if (marker.inside(myE)){
-                    marker.setCurPoint(myE);
-                    marker.setFocused(true);
+                if (transMarker.inside(myE)){
+                    transMarker.setCurPoint(myE);
+                    transMarker.setFocused(true);
                 }
                 else
-                    marker.setFocused(false);
+                    transMarker.setFocused(false);
+                if (rotateMarker.inside(myE)){
+                    rotateMarker.setCurPoint(myE);
+                    rotateMarker.setFocused(true);
+                }
+                else
+                    rotateMarker.setFocused(false);
             }
         });
     }
@@ -48,32 +56,34 @@ public class DrawPanel extends JPanel implements MouseMotionListener {
         BufferedImagePixelDrawer pd = new BufferedImagePixelDrawer(bi);
         if (figure != null)
             figure.draw(screenConverter, pd, ld, Color.RED);
-        marker.draw(screenConverter, pd, ld, Color.RED);
+        transMarker.draw(screenConverter, pd, ld, Color.RED);
+        rotateMarker.draw(screenConverter, pd, ld, Color.RED);
         g.drawImage(bi, 0, 0, null);
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         MyPoint myE = screenConverter.screenToReal(e.getPoint());
-        System.out.println("eX");
-        System.out.println(myE.x);
-        System.out.println("eY");
-        System.out.println(myE.y);
+//        System.out.println("eX");
+//        System.out.println(myE.x);
+//        System.out.println("eY");
+//        System.out.println(myE.y);
 //        System.out.println("curX");
-//        System.out.println(marker.getCurPoint().x);
+//        System.out.println(transMarker.getCurPoint().x);
 //        System.out.println("curY");
-//        System.out.println(marker.getCurPoint().y);
-        System.out.println("cx");
-        System.out.println(marker.getCenter().x);
-        System.out.println("cy");
-        System.out.println(marker.getCenter().y);
-        if (marker.isFocused()){
-            marker.moveMarker(marker.getCurPoint(), myE);
-            marker.setCurPoint(myE);
-
+//        System.out.println(transMarker.getCurPoint().y);
+//        System.out.println("cx");
+//        System.out.println(transMarker.getCenter().x);
+//        System.out.println("cy");
+//        System.out.println(transMarker.getCenter().y);
+        if (transMarker.isFocused()){
+            transMarker.moveMarker(transMarker.getCurPoint(), myE);
+            transMarker.setCurPoint(myE);
         }
-        else
-            System.out.println("STOP");
+        if (rotateMarker.isFocused()) {
+            rotateMarker.moveMarker(rotateMarker.getCurPoint(), myE);
+            rotateMarker.setCurPoint(myE);
+        }
         repaint();
     }
 
