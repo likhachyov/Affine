@@ -1,5 +1,8 @@
-package Interfaces;
+package modules;
 
+import Interfaces.Figure;
+import Interfaces.LineDrawer;
+import Interfaces.PixelDrawer;
 import affines.Affine;
 import modules.MyPoint;
 import modules.ScreenConverter;
@@ -10,12 +13,12 @@ import java.util.ArrayList;
 public abstract class Marker implements Figure {
 
     private boolean focused;
-
+    protected Color color = Color.RED;
     public void setFocused(boolean focused) {
         this.focused = focused;
     }
 
-    public int size = 20;
+    public int size = 10;
     private MyPoint curPoint;
 
     public Figure figure;
@@ -46,15 +49,18 @@ public abstract class Marker implements Figure {
 
     @Override
     public void draw(ScreenConverter screenConverter, PixelDrawer pd, LineDrawer ld, Color color) {
+        keyPoints.clear();
+        keyPoints.add(new MyPoint(center.getX() - size, center.getY() - size)); //  каждый пересчитываем. где рисовать маркер
+        keyPoints.add(new MyPoint(center.getX() - size, center.getY() + size));
+        keyPoints.add(new MyPoint(center.getX() + size, center.getY() + size));
+        keyPoints.add(new MyPoint(center.getX() + size, center.getY() - size));
         for (int i = 0; i < keyPoints.size(); i++) {
             ld.drawLine(pd, screenConverter.realToScreen(keyPoints.get(i)),
-                    screenConverter.realToScreen(keyPoints.get((i + 1) % keyPoints.size())), color);
+                    screenConverter.realToScreen(keyPoints.get((i + 1) % keyPoints.size())), this.color);
         }
-        Point r = screenConverter.realToScreen(center);
-        pd.drawPixel(r.x, r.y, color);
     }
 
-    public abstract void moveMarker(MyPoint from, MyPoint to);
+    public abstract void moveFigure(MyPoint from, MyPoint to);
 
     public boolean inside(MyPoint point) {
         if (point.x >= center.x - size && point.x <= center.x + size &&

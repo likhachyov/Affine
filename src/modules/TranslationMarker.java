@@ -2,10 +2,10 @@ package modules;
 
 
 import Interfaces.Figure;
-import Interfaces.Marker;
 import affines.Affine;
 import affines.Translation;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class TranslationMarker extends Marker {
@@ -15,19 +15,15 @@ public class TranslationMarker extends Marker {
         this.figure = figure;
         center = figure.getCenter();
         keyPoints = new ArrayList<>(4);
-        keyPoints.add(new MyPoint(center.getX() - size, center.getY() - size));
-        keyPoints.add(new MyPoint(center.getX() - size, center.getY() + size));
-        keyPoints.add(new MyPoint(center.getX() + size, center.getY() + size));
-        keyPoints.add(new MyPoint(center.getX() + size, center.getY() - size));
+        color = Color.GREEN;
     }
 
     @Override
-    public void moveMarker(MyPoint from, MyPoint to) {
-        int dx = (int) (to.x - from.x);
-        int dy = (int) (to.y - from.y);
+    public void moveFigure(MyPoint from, MyPoint to) {
+        double dx =  (to.x - from.x);
+        double dy =  (to.y - from.y);
         Translation t = new Translation(dx, dy);
         affine.transform(figure, t);
-        affine.transform(this, t);
     }
 
 }

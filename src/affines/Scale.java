@@ -20,7 +20,7 @@ public class Scale implements Affine {
 
 
     @Override
-    public void transform(MyPoint point) {
+    public void transform(MyPoint point, MyPoint relativeCenter) {
         point.x *= a;
         point.y *= b;
     }

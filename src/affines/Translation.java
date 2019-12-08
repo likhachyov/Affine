@@ -7,7 +7,7 @@ public class Translation implements Affine {
 
     private double a, b;
 
-    public Translation(int a, int b) {
+    public Translation(double a, double b) {
         this.a = a;
         this.b = b;
     }
@@ -26,7 +26,7 @@ public class Translation implements Affine {
     }
 
     @Override
-    public void transform(MyPoint point) {
+    public void transform(MyPoint point, MyPoint relativeCenter) {
         point.x += a;
         point.y += b;
     }

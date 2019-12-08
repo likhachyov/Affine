@@ -1,12 +1,14 @@
 package affines;
 
 import Interfaces.Figure;
-import Interfaces.Marker;
+import modules.MyPoint;
 
 public class Affine {
 
     public void transform(Figure figure, Interfaces.Affine affine) {
-       figure.getKeyPoints().forEach(affine::transform);
-       affine.transform(figure.getCenter());
+        for (MyPoint keyPoint : figure.getKeyPoints()) {
+            affine.transform(keyPoint, figure.getCenter());
+        }
+        affine.transform(figure.getCenter(), figure.getCenter());
     }
 }

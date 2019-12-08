@@ -28,4 +28,9 @@ public class ScreenConverter {
         double y = (screenCenterY - p.y) * realHeight / screenHeight;
         return new MyPoint(x, y);
     }
+
+    public void increaseRealSize(int delta) {
+        realHeight+= delta;
+        realWidth+= delta;
+    }
 }

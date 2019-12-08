@@ -20,9 +20,9 @@ public class Rotate implements Affine {
     }
 
     @Override
-    public void transform(MyPoint point) {
-        point.x= point.x * Math.cos(alpha) - point.y * Math.sin(alpha);
-        point.y = point.x * Math.sin(alpha) + point.y * Math.cos(alpha);
-
+    public void transform(MyPoint point, MyPoint relativeCenter) {
+        double oldX = point.x;
+        point.x = (point.x - relativeCenter.x) * Math.cos(alpha) - (point.y - relativeCenter.y) * Math.sin(alpha) + relativeCenter.x;
+        point.y = (oldX - relativeCenter.x) * Math.sin(alpha) + (point.y - relativeCenter.y) * Math.cos(alpha) + relativeCenter.y;
     }
 }

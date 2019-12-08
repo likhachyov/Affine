@@ -4,5 +4,5 @@ import modules.MyPoint;
 
 public interface Affine {
 
-    void transform(MyPoint point);
+    void transform(MyPoint point, MyPoint relativeCenter);
 }

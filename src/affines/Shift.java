@@ -26,9 +26,10 @@ public class Shift implements Affine {
     }
 
     @Override
-    public void transform(MyPoint point) {
-        point.x = point.x + point.y * shiftY;
-        point.y = point.x * shiftX + point.y;
+    public void transform(MyPoint point, MyPoint relativeCenter) {
+        double oldX = point.x;
+        point.x = point.x + (point.y - relativeCenter.y) * shiftY;
+        point.y = (oldX - relativeCenter.x) * shiftX + point.y;
 
     }
 }

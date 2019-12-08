@@ -19,6 +19,10 @@ public class Rhombus implements Figure {
         keyPoints.add(new MyPoint(center.getX(), center.getY() + height / 2));
         keyPoints.add(new MyPoint(center.getX() + width / 2, center.getY()));
         keyPoints.add(new MyPoint(center.getX(), center.getY() - height / 2));
+        keyPoints.add(getCenterOnLine(keyPoints.get(0), keyPoints.get(1)));
+        keyPoints.add(getCenterOnLine(keyPoints.get(1), keyPoints.get(2)));
+        keyPoints.add(getCenterOnLine(keyPoints.get(2), keyPoints.get(3)));
+        keyPoints.add(getCenterOnLine(keyPoints.get(3), keyPoints.get(0)));
     }
 
     @Override
@@ -28,10 +32,13 @@ public class Rhombus implements Figure {
 
     @Override
     public void draw(ScreenConverter screenConverter, PixelDrawer pd, LineDrawer ld, Color color) {
-        for (int i = 0; i < keyPoints.size(); i++) {
+        int i = 0;
+        for (; i < 4; i++) {
             ld.drawLine(pd, screenConverter.realToScreen(keyPoints.get(i)),
                     screenConverter.realToScreen(keyPoints.get((i + 1) % keyPoints.size())), color);
         }
+        ld.drawLine(pd, screenConverter.realToScreen(keyPoints.get(i)),
+                screenConverter.realToScreen(keyPoints.get(0)), color);
     }
 
     @Override
